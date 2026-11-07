@@ -25,6 +25,8 @@ python "<memory-workspace>/.memory-tools/memory.py" --workspace "<memory-workspa
 
 **不安装向量库也可以使用。** 核心人格按加载链直接全文读取，具体经历通过内置中文词项检索定位原文。保存→搜索→回读示例、MCP 用法、搜不到时的处理和语义检索边界见 [召回使用指南](skills/memory-l/references/recall-guide.md)。当前版本尚未接入向量后端，安装 Chroma 不会自动启用语义检索。
 
+想判断是否增加向量库、选择中文/多语言模型或估算维护负担，见 [检索配置建议](skills/memory-l/references/retrieval-options.md)。其中附独立 Chroma 安装与合成存储实验，接入 Memory-L 的语义适配仍需单独实现和验证。
+
 ## 提供什么
 
 | 能力 | 实际行为 |

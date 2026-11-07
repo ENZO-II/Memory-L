@@ -22,3 +22,5 @@ Before Git migration, generate the manifest, explicitly stage its eligible asset
 Read [operations](references/operations.md) for CLI payloads, source screening, host connections and migration. The base kit provides standard-library Chinese lexical RAG; it does not install a vector database, ingest platform databases, or run a background model.
 
 For everyday recall, no-vector setup, search/read examples, cache diagnostics and semantic-retrieval limits, read the [recall guide](references/recall-guide.md). The current release has no vector backend; installing Chroma alone does not enable one.
+
+For optional vector-store choices, Chinese/multilingual model candidates, isolated Chroma experiments and cost evaluation, read [retrieval options](references/retrieval-options.md). Keep storage experiments separate from a working semantic adapter and report what has actually been validated.

@@ -1,7 +1,7 @@
 {
   "name": "memory-l",
   "version": "0.1.0",
-  "release_id": "2d007c3251c9",
+  "release_id": "339c60d590e9",
   "private_data_included": false,
   "files": [
     {
@@ -31,13 +31,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 7081,
-      "sha256": "c23bd0ec955d2ebc1e0b0e2710f522baf28a2a2c8fbdeca6360bccd199dbaf64"
+      "bytes": 7358,
+      "sha256": "b400828cb95eb411d7f84376d6fab74dd9ba5cafd6f99b7d37d728298764aced"
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 1619,
-      "sha256": "69778394857f77f76592494d3bbfaad053b0cecb59b76cacba93a7c064ead5ad"
+      "bytes": 2061,
+      "sha256": "19f6782477f605762edcbdf2d5ed9783e4c874457d5e32a8668bd5b7e231481c"
     },
     {
       "path": "evaluations/README.md",
@@ -51,8 +51,8 @@
     },
     {
       "path": "skills/memory-l/SKILL.md",
-      "bytes": 3307,
-      "sha256": "94a880fb751151c790b5b0f08f80c6351d5a48ad68cec397d875798bf96f6924"
+      "bytes": 3601,
+      "sha256": "ef2d8f585d99e2a24a3e4ddaa10d3767772a2902bb13e76c872b109f2522f896"
     },
     {
       "path": "skills/memory-l/agents/openai.yaml",
@@ -96,13 +96,18 @@
     },
     {
       "path": "skills/memory-l/references/operations.md",
-      "bytes": 6043,
-      "sha256": "bc847d69e8f88792fd7c1acf9c4e709a33451dd19770e4f8fbf2baa4ab2166ea"
+      "bytes": 6235,
+      "sha256": "aaaad0d0f8589023f331edbbe4e2b15ba36fd3f7e3e35065aaddf6a3aefa38fb"
     },
     {
       "path": "skills/memory-l/references/recall-guide.md",
-      "bytes": 7891,
-      "sha256": "5114641a3427a82ef563a4d626ea7f5042e173da864eec9e85784e3ba3de9123"
+      "bytes": 8013,
+      "sha256": "34b5fc5ae09e5019436f8fd2c171ac5f23366ca25e10c2d4a46f391f93736772"
+    },
+    {
+      "path": "skills/memory-l/references/retrieval-options.md",
+      "bytes": 9024,
+      "sha256": "0eabc6c56d1e7359aa7f8af044948a75e2197a556ee1c443805e451e999eee30"
     },
     {
       "path": "skills/memory-l/scripts/integrity.py",

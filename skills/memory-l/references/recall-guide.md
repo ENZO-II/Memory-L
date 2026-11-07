@@ -70,6 +70,8 @@ python "<memory-workspace>/.memory-tools/memory.py" --workspace "<memory-workspa
 
 ## 什么时候需要语义检索
 
+路线选择、本地 Chroma 安装实验、模型候选与成本评估见 [检索配置建议](retrieval-options.md)。
+
 | 需求 | 当前版本的处理 |
 |---|---|
 | 完整加载核心人格和记忆 | 直接读取原文，无需向量库 |

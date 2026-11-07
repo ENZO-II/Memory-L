@@ -29,6 +29,8 @@ python memory.py core-file TIMELINE.md --offset 0 --max-chars 20000
 
 不安装向量库时的日常流程、可直接运行的保存/搜索/回读示例、缓存与故障处理见 [召回使用指南](recall-guide.md)。当前提供词项 RAG，语义后端尚未实现；安装向量数据库本身不会改变检索方式。
 
+是否选择向量后端、怎样独立安装试验与评估开销，见 [检索配置建议](retrieval-options.md)。该指南中的合成存储示例没有修改本工具的检索后端。
+
 ## 初筛与共同决定
 
 外部原始导出放在 `.memory-sources/`，按需对具体 Markdown 执行导入。
