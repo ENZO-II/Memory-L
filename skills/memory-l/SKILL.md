@@ -20,3 +20,5 @@ For reflection, prepare versioned inputs, actually read and think in the current
 Before Git migration, generate the manifest, explicitly stage its eligible assets, check the index and committed HEAD, then verify the fetched remote ref after an authorized push. The kit's stage command does not commit or push. Preserve the user's actual publication and repository choices.
 
 Read [operations](references/operations.md) for CLI payloads, source screening, host connections and migration. The base kit provides standard-library Chinese lexical RAG; it does not install a vector database, ingest platform databases, or run a background model.
+
+For everyday recall, no-vector setup, search/read examples, cache diagnostics and semantic-retrieval limits, read the [recall guide](references/recall-guide.md). The current release has no vector backend; installing Chroma alone does not enable one.

@@ -1,7 +1,7 @@
 {
   "name": "memory-l",
   "version": "0.1.0",
-  "release_id": "f14f61cd59a3",
+  "release_id": "2d007c3251c9",
   "private_data_included": false,
   "files": [
     {
@@ -31,8 +31,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6697,
-      "sha256": "f90b968ea65789eef2b6f69a1fb8d22ee0b1add7f5df8fcb6d1c1c32b288ff2a"
+      "bytes": 7081,
+      "sha256": "c23bd0ec955d2ebc1e0b0e2710f522baf28a2a2c8fbdeca6360bccd199dbaf64"
     },
     {
       "path": "VALIDATION.md",
@@ -51,8 +51,8 @@
     },
     {
       "path": "skills/memory-l/SKILL.md",
-      "bytes": 3056,
-      "sha256": "c268f36adc6e7e643dc07df9aa1fd4344efbf86f3ff784a5c1bffdea9dfc115c"
+      "bytes": 3307,
+      "sha256": "94a880fb751151c790b5b0f08f80c6351d5a48ad68cec397d875798bf96f6924"
     },
     {
       "path": "skills/memory-l/agents/openai.yaml",
@@ -96,8 +96,13 @@
     },
     {
       "path": "skills/memory-l/references/operations.md",
-      "bytes": 5784,
-      "sha256": "af1a46ff15fb46029be9633e24ca107737d23c64a46badebc242bbd369ade510"
+      "bytes": 6043,
+      "sha256": "bc847d69e8f88792fd7c1acf9c4e709a33451dd19770e4f8fbf2baa4ab2166ea"
+    },
+    {
+      "path": "skills/memory-l/references/recall-guide.md",
+      "bytes": 7891,
+      "sha256": "5114641a3427a82ef563a4d626ea7f5042e173da864eec9e85784e3ba3de9123"
     },
     {
       "path": "skills/memory-l/scripts/integrity.py",

@@ -23,6 +23,8 @@ python "<memory-workspace>/.memory-tools/memory.py" --workspace "<memory-workspa
 
 先读 `.memory/MEMORY.md`，由双方填写 SEED 和 PROFILE，移除其中的模板标记。初始 `identity_ready=false`，不会把一份骨架当作已经形成的人格。已有 AGENTS/CLAUDE 和人格正文保持原样；`loader_connected=false` 时，审阅 `.memory/LOADER.md` 并合并到自己的原加载流程。
 
+**不安装向量库也可以使用。** 核心人格按加载链直接全文读取，具体经历通过内置中文词项检索定位原文。保存→搜索→回读示例、MCP 用法、搜不到时的处理和语义检索边界见 [召回使用指南](skills/memory-l/references/recall-guide.md)。当前版本尚未接入向量后端，安装 Chroma 不会自动启用语义检索。
+
 ## 提供什么
 
 | 能力 | 实际行为 |
@@ -64,7 +66,7 @@ python "<memory-workspace>/.memory-tools/memory.py" --workspace "<memory-workspa
 
 按自己的宿主配置合并对应片段，并重新加载该宿主。DSH 片段面向已安装 `@deepseek-ai/dsh-mcp-client` 的实际 profile，保留其他插件与原有配置。协议测试与各宿主的实际新会话验收分别记录。
 
-预定公开仓库发布后，可在支持 marketplace 参数的 Claude Code 中使用：
+公开仓库已发布，可在支持 marketplace 参数的 Claude Code 中使用：
 
 ```text
 /plugin install memory-l --marketplace ENZO-II/Memory-L
