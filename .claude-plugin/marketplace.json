@@ -1,0 +1,8 @@
+{
+  "name": "memory-l",
+  "description": "Portable Markdown memory and shared governance tools",
+  "owner": {"name": "Memory-L contributors"},
+  "plugins": [
+    {"name": "memory-l", "source": "./", "description": "Portable Markdown memory and shared governance"}
+  ]
+}

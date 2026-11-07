@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+.memory/
+.memory-tools/
+.memory-cache/
+.memory-sources/
+dist/
+*.log

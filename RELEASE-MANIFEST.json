@@ -1,0 +1,208 @@
+{
+  "name": "memory-l",
+  "version": "0.1.0",
+  "release_id": "f14f61cd59a3",
+  "private_data_included": false,
+  "files": [
+    {
+      "path": ".claude-plugin/marketplace.json",
+      "bytes": 270,
+      "sha256": "a53d04603f349f408d92b2d8ee6ef5c9cf9b023a218cc3271ba080026b34aa54"
+    },
+    {
+      "path": ".claude-plugin/plugin.json",
+      "bytes": 204,
+      "sha256": "d93c5755d9ca8545b7445d61d0ccafbac83472a40e5190a92624304b55e9a247"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 90,
+      "sha256": "19e17b586393ae85d188e34151b067081ed9fd8b34a8412aded999685dbd41d9"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 94,
+      "sha256": "d6d426b34b28f29c5495dab2906536b2471d19912b6fb9a6ede5b673c3dbb7f1"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1078,
+      "sha256": "87a8ffdf1a95f8f85f4444e6d11e26262bd3f0ad027bd560bc22a321618bf4a1"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6697,
+      "sha256": "f90b968ea65789eef2b6f69a1fb8d22ee0b1add7f5df8fcb6d1c1c32b288ff2a"
+    },
+    {
+      "path": "VALIDATION.md",
+      "bytes": 1619,
+      "sha256": "69778394857f77f76592494d3bbfaad053b0cecb59b76cacba93a7c064ead5ad"
+    },
+    {
+      "path": "evaluations/README.md",
+      "bytes": 610,
+      "sha256": "c95337b1970edeb397f3b8e2f738e66bda2e68f84d25c467902c471a6ae98d47"
+    },
+    {
+      "path": "evaluations/questions.xml",
+      "bytes": 2308,
+      "sha256": "9bf73548c15a25bfe8e57dc30624560defbb67c23750033f8a97df08ae515ab1"
+    },
+    {
+      "path": "skills/memory-l/SKILL.md",
+      "bytes": 3056,
+      "sha256": "c268f36adc6e7e643dc07df9aa1fd4344efbf86f3ff784a5c1bffdea9dfc115c"
+    },
+    {
+      "path": "skills/memory-l/agents/openai.yaml",
+      "bytes": 268,
+      "sha256": "9c212a8909636905921573e904e197ce872884e47cd19742be9de05bc4765366"
+    },
+    {
+      "path": "skills/memory-l/assets/templates/MEMORY.md",
+      "bytes": 4366,
+      "sha256": "5f25588ff96e4b8e8a3b1665dcbdb00301dd674a54c4ce95b0c43ce3a208c2b7"
+    },
+    {
+      "path": "skills/memory-l/assets/templates/PROFILE.md",
+      "bytes": 303,
+      "sha256": "ad275b6e6e58c48442dd8af1c6783c923e0d57741fbb4d95b51ef6cfda661bf1"
+    },
+    {
+      "path": "skills/memory-l/assets/templates/SEED.md",
+      "bytes": 396,
+      "sha256": "12747c1bef4f30b4eec2c374991fc8a9af7e0869dbcf73ee3508a1984881aff1"
+    },
+    {
+      "path": "skills/memory-l/assets/templates/SELF-NOTES.md",
+      "bytes": 175,
+      "sha256": "66681aae1522b3c46af6592712324460e04be87870526afe4e49c4b766d7bba6"
+    },
+    {
+      "path": "skills/memory-l/assets/templates/SOUL.md",
+      "bytes": 148,
+      "sha256": "0a3258ef98507d7489ecaf9edf6023df3a4b45397f37498686362545ff65c036"
+    },
+    {
+      "path": "skills/memory-l/assets/templates/TIMELINE.md",
+      "bytes": 109,
+      "sha256": "1f9020414458b9b618bf05a79459dc320cac95bbf8f26b7773d3135221c7d242"
+    },
+    {
+      "path": "skills/memory-l/assets/templates/USER.md",
+      "bytes": 149,
+      "sha256": "ea8d41ed0d9809f94f70c166493b4e281fdcb4c912c0ec637d21c0b862c78ae1"
+    },
+    {
+      "path": "skills/memory-l/references/operations.md",
+      "bytes": 5784,
+      "sha256": "af1a46ff15fb46029be9633e24ca107737d23c64a46badebc242bbd369ade510"
+    },
+    {
+      "path": "skills/memory-l/scripts/integrity.py",
+      "bytes": 8839,
+      "sha256": "1c8304e945d0e77113477bc442044c4f78d0d392ab28c7dfa7c6bf0e7c264ec5"
+    },
+    {
+      "path": "skills/memory-l/scripts/kit.py",
+      "bytes": 12953,
+      "sha256": "e1663ec0f67772d71e6f850d5860f8d29de937eae07988137deef91102e4b0b5"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory.py",
+      "bytes": 8238,
+      "sha256": "8738712d2e3b1748bc99b57912a57a16bce425aa3e5384bd30d92fab3bb3f5ca"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/__init__.py",
+      "bytes": 153,
+      "sha256": "4b6466ba61ac69953d98d0b8b2f9276f8773d9804b279156c6bcdcb26e0e8e23"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/context.py",
+      "bytes": 12938,
+      "sha256": "5941b98fea88c17cc08f31a4b1ad83edc0134e4925e04a2bfdd12b3c80627667"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/dispatch.py",
+      "bytes": 4210,
+      "sha256": "44f190f64fa38fd2dd4fc7f26aabfcd96416a87e950d9d5c65439babf4230637"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/files.py",
+      "bytes": 2761,
+      "sha256": "46f3eb5661a8a6560457414cb54416b5fe1bef6605b189190369405343563be8"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/ingest.py",
+      "bytes": 1652,
+      "sha256": "ddb460c692f15b7319c6060a99f181e1dbfeb340b1d63f7ec41b90726a97228a"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/learning.py",
+      "bytes": 3778,
+      "sha256": "93fde35cb75cedfaa9260e0b02f30a90cd9a722cbe265de3eb4a2dd10aa0b1ac"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/lexical_cache.py",
+      "bytes": 11715,
+      "sha256": "6d83e35c744371d95a38c151e3910e565432f05719d923ba101ec34a30272cdf"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/lifecycle.py",
+      "bytes": 3995,
+      "sha256": "88f25c62816537942161908d82e484fd0b1b50ebf8cb81a538db0d5ac30368b6"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/policy.py",
+      "bytes": 9401,
+      "sha256": "fb68bceb75f1768d0ae3f3e872545d85b44e426826c52017b3d2d68289feb167"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/retrieval.py",
+      "bytes": 5034,
+      "sha256": "bc40fb19340ceef70b7e4b3ac131285194fe8caec2bb0a5e7aebdfa1476eb341"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/settings.py",
+      "bytes": 1129,
+      "sha256": "ee113c9a96ed4a4d0e3bfa88ba19ffdca7f94ac387446d466a9b477905ed6233"
+    },
+    {
+      "path": "skills/memory-l/scripts/memory_core/store.py",
+      "bytes": 10829,
+      "sha256": "17442d231e1d4d6f3e4128f10ba5ad23da920cd1bc8906d90ea9bd9c3c1b331c"
+    },
+    {
+      "path": "skills/memory-l/scripts/requirements-mcp.txt",
+      "bytes": 13,
+      "sha256": "21798b3ce130ad4fb136b67021d5dcfefc7e84e6f871a6c813fea0da5378c6aa"
+    },
+    {
+      "path": "skills/memory-l/scripts/server.py",
+      "bytes": 9472,
+      "sha256": "192d213d994ad8291557e9ef93d6040ee5f1eaad5f42bbeb958323a23fff448f"
+    },
+    {
+      "path": "tests/seed_evaluation.py",
+      "bytes": 4828,
+      "sha256": "6b856629742886cf3e8fef9a4a8c2e3042b054f9758c6dda72768c7076af348f"
+    },
+    {
+      "path": "tests/test_kit.py",
+      "bytes": 15493,
+      "sha256": "059c6c17b34069448456d29acc6ad931ce5bfe4d2989c98e91f9462e89ef85cc"
+    },
+    {
+      "path": "tools/build_release.py",
+      "bytes": 4021,
+      "sha256": "53eb9d36f720745f1147a1abd9ffe0e6ffc1ce26fc4b57842223bfe255d17ddc"
+    },
+    {
+      "path": "tools/verify_release.py",
+      "bytes": 1681,
+      "sha256": "78c8685bbd6671e9cbd23f1cff7a9f1152f5848984d9091d50c08c4152f82620"
+    }
+  ]
+}

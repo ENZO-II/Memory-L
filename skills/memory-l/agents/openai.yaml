@@ -1,0 +1,4 @@
+interface:
+  display_name: "Memory-L"
+  short_description: "在独立 Markdown 工作区中维护人格记忆、共同治理、来源初筛与 Git 接续"
+  default_prompt: "使用 $memory-l，在我指定的工作区建立或治理自己的 Markdown 记忆系统。"

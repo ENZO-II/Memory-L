@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<evaluation>
+  <qa_pair><question>在合成工作区里，灯塔方案存在采用策略与旧备选。通过搜索及完整决定记录核对后，只回答实际已共同采用的策略名称。</question><answer>原文回读</answer></qa_pair>
+  <qa_pair><question>核对蓝色仓库相关记录的当前正文和修改历史。只回答复核后的箱数，用阿拉伯数字。</question><answer>7</answer></qa_pair>
+  <qa_pair><question>找到“观察本”的日记，再核对人格补充用途。它当前的内化等级是否已达到 P0？只回答 true 或 false。</question><answer>false</answer></qa_pair>
+  <qa_pair><question>有一条外部原文已经由人类普通确认，但尚未选入学习。核对其审核历史与学习用途后，confirm 是否自动开放了学习？只回答 true 或 false。</question><answer>false</answer></qa_pair>
+  <qa_pair><question>找到由已选材料形成的草稿，沿 learning_sources 回读原始来源的决定历史。最后一次影响学习选择的 action 是什么？只回答英文 action。</question><answer>deselect_learning</answer></qa_pair>
+  <qa_pair><question>搜索当前可用理解，再按类型列表回读红色方案的决定记录。它最后被选择继续使用，还是拒绝？只回答英文决定 action。</question><answer>reject</answer></qa_pair>
+  <qa_pair><question>“后来修改的成长理解”曾被共同采用。核对最新正文、旧决定和当前人格补充后，实质改写后的当前阶段是什么？只回答 P0、P1 或 P2。</question><answer>P2</answer></qa_pair>
+  <qa_pair><question>核对灯塔方案的 adopt 历史，及其中保留的双方意见。实际决定的 actor 字段是什么？只回答字段值。</question><answer>joint</answer></qa_pair>
+  <qa_pair><question>对照派生草稿、它的来源选择历史与当前学习/工作用途，来源撤回选择后，这份草稿是否仍可默认用于学习？只回答 true 或 false。</question><answer>false</answer></qa_pair>
+  <qa_pair><question>找到“保存前核验的顺序”经验，回读完整正文并对照它的未晋升状态。保存决定之前紧接着核验的是什么？只回答两个汉字。</question><answer>版本</answer></qa_pair>
+</evaluation>
