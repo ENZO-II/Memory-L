@@ -17,6 +17,11 @@ def main(argv=None):
     init = commands.add_parser("init")
     init.add_argument("--name", required=True)
     init.add_argument("--owner", required=True)
+    migration = commands.add_parser("migrate-plan")
+    migration.add_argument("--input", required=True, help="Explicit legacy Markdown mapping JSON")
+    migration.add_argument("--output", required=True, type=Path)
+    commands.add_parser("migrate-apply").add_argument("--plan", required=True, type=Path)
+    commands.add_parser("migrate-verify")
     commands.add_parser("status")
     for name in ("save", "revise", "decide", "authorize", "reflect-commit", "publish"):
         commands.add_parser(name).add_argument("--input", required=True, help="JSON file or - for stdin")
@@ -70,6 +75,15 @@ def main(argv=None):
             result = kit.initialize(args.name, args.owner)
         elif args.command == "status":
             result = kit.status()
+        elif args.command == "migrate-plan":
+            from legacy_migration import prepare
+            result = prepare(args.input, args.output)
+        elif args.command == "migrate-apply":
+            from legacy_migration import apply
+            result = apply(args.plan)
+        elif args.command == "migrate-verify":
+            from legacy_migration import verify
+            result = verify()
         else:
             kit.ensure_initialized()
             if args.command in {"save", "revise", "decide", "authorize", "reflect-commit", "publish"}:

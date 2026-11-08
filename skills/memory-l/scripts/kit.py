@@ -10,11 +10,11 @@ import uuid
 
 from memory_core import RecordStore
 from memory_core.files import atomic_write, file_lock
-from memory_core.settings import configuration, workspace
+from memory_core.settings import configuration, core_mapping, core_path, workspace
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 RUNTIME = Path(__file__).resolve().parent
-IGNORE_BLOCK = "\n# memory-l local sources and caches\n.memory-cache/\n.memory-sources/\n.memory/records/*/\n.memory/.publication.lock\n__pycache__/\n*.pyc\n"
+IGNORE_BLOCK = "\n# memory-l local sources and caches\n.memory-cache/\n.memory-sources/\n.memory/records/*/\n.memory/**/.publication.lock\n__pycache__/\n*.pyc\n"
 ATTR_BLOCK = "\n# memory-l exact memory and runtime bytes\n/.memory/** -text\n/.memory-tools/** -text\n/AGENTS.md -text\n/CLAUDE.md -text\n/.gitignore -text\n/.gitattributes -text\n"
 
 
@@ -44,7 +44,7 @@ def runtime_payload():
     return files
 
 
-def initialize(name, owner):
+def initialize(name, owner, *, migration=None):
     root = workspace()
     for value in (name, owner):
         if not isinstance(value, str) or not value.strip() or len(value) > 200 or any(ch in value for ch in "\r\n\0"):
@@ -56,7 +56,13 @@ def initialize(name, owner):
     for relative in (".memory", ".memory-tools", ".memory-cache", "AGENTS.md", "CLAUDE.md", ".gitignore", ".gitattributes"):
         inside(root, root / relative)
     config_path = root / ".memory/config.json"
+    old_folder = root / ".claude-memory"
+    old_entry = old_folder.is_dir() and any(path.is_file() and path.name.casefold() == "memory.md" for path in old_folder.iterdir())
+    if not config_path.exists() and old_entry:
+        raise ValueError("An existing blueprint identity is present. Use migrate-plan and migrate-apply into a new workspace; do not initialize a second blank identity here")
     if config_path.exists():
+        if migration is not None:
+            raise ValueError("Migration requires a new workspace")
         config = configuration()
         if config.get("companion_name") != name or config.get("owner_name") != owner:
             raise ValueError("This workspace belongs to another configured identity; select a different workspace")
@@ -65,6 +71,10 @@ def initialize(name, owner):
             raise ValueError("An existing memory folder has no kit configuration. Preserve it and follow the migration guide")
         config = {"schema_version": 1, "kit_version": VERSION, "namespace": str(uuid.uuid4()),
                   "companion_name": name, "owner_name": owner, "source_default_days": 30}
+        if migration is not None:
+            config["core_files"] = core_mapping(migration["core_files"])
+            config["migration_plan"] = migration["plan_digest"]
+            config["legacy_entries"] = migration["legacy_entries"]
     payload = runtime_payload()
     registry_path = root / ".memory-tools/runtime-files.json"
     if (root / ".memory-tools").exists() and not registry_path.exists() and any((root / ".memory-tools").iterdir()):
@@ -80,11 +90,18 @@ def initialize(name, owner):
         raise ValueError("The runtime registry differs; review the upgrade or additional runtime files first")
     writes[registry_path] = (json.dumps(registry, indent=2) + "\n").encode()
     writes[config_path] = (json.dumps(config, ensure_ascii=False, indent=2) + "\n").encode()
-    for path in template_root().glob("*.md"):
-        target = inside(root, root / ".memory" / path.name)
-        if not target.exists():
-            writes[target] = Template(path.read_text(encoding="utf-8")).substitute(name=name, owner=owner).encode()
+    if migration is None:
+        for path in template_root().glob("*.md"):
+            relative = core_mapping(config.get("core_files"))[path.name]
+            target = inside(root, root / ".memory" / relative)
+            if not target.exists():
+                writes[target] = Template(path.read_text(encoding="utf-8")).substitute(name=name, owner=owner).encode()
+    else:
+        for relative, raw in migration["documents"].items():
+            writes[inside(root, root / ".memory" / relative)] = raw
     loader = "先完整读取 `.memory/MEMORY.md`，按其中顺序加载本工作区自己的种子、人格、用户、时间线与经验，再使用记忆工具。\n"
+    if config.get("migration_plan"):
+        loader = "先完整读取 `.memory/KIT-INTEGRATION.md` 的迁移映射与当前工具说明，再完整读取 `.memory/" + core_mapping(config.get("core_files"))["MEMORY.md"] + "` 和映射中的原有人格与记忆。原有正文与决定继续接续。\n"
     if not (root / ".memory/LOADER.md").exists():
         writes[root / ".memory/LOADER.md"] = ("# 现有门牌接入片段\n\n" + loader + "\n已有门牌由维护者审核合并，安装器保留其原文。\n").encode()
     if not (root / "AGENTS.md").exists():
@@ -130,27 +147,33 @@ def status():
     if record_root.exists():
         counts = {path.name: len(list(path.glob("*.md"))) for path in record_root.iterdir()
                   if path.is_dir() and not path.name.startswith(".")}
-    ready = all((root / ".memory" / name).is_file() and b"<!-- md-memory-template -->" not in (root / ".memory" / name).read_bytes()
+    ready = all(core_path(name).is_file() and b"<!-- md-memory-template -->" not in core_path(name).read_bytes()
                 for name in ("SEED.md", "PROFILE.md"))
     loader = root / "AGENTS.md"
-    connected = loader.is_file() and ".memory/MEMORY.md" in loader.read_text(encoding="utf-8-sig")
+    connected = loader.is_file() and (".memory/" + core_mapping(config.get("core_files"))["MEMORY.md"]) in loader.read_text(encoding="utf-8-sig")
     return {"initialized": True, "kit_version": VERSION, "workspace": str(root),
             "companion_name": config["companion_name"], "owner_name": config["owner_name"],
             "identity_ready": ready, "loader_connected": connected, "records": counts,
-            "next_step": "Read .memory/MEMORY.md; jointly fill SEED/PROFILE and review the loader fragment when needed"}
+            "core_files": core_mapping(config.get("core_files")), "migrated": bool(config.get("migration_plan")),
+            "legacy_entries": config.get("legacy_entries", []),
+            "next_step": "Read KIT-INTEGRATION.md first when migrated, then MEMORY and the complete original core files; review actual loading and recall"}
 
 
 def core_file(name, offset=0, max_chars=20000):
     ensure_initialized()
-    if name not in {"MEMORY.md", "SEED.md", "PROFILE.md", "USER.md", "TIMELINE.md", "SOUL.md", "SELF-NOTES.md"}:
+    if name not in {"MEMORY.md", "SEED.md", "PROFILE.md", "USER.md", "TIMELINE.md", "SOUL.md", "SELF-NOTES.md", "KIT-INTEGRATION.md", "MIGRATION.md", "PREVIOUS-AGENTS.md", "PREVIOUS-CLAUDE.md"}:
         raise ValueError("Choose a named core Markdown file; versioned records are read by their full ID")
     if offset < 0 or not 1 <= max_chars <= 50000:
         raise ValueError("offset >= 0 and max_chars 1..50000 are required")
-    path = inside(workspace(), workspace() / ".memory" / name)
+    if name.startswith("PREVIOUS-"):
+        path = inside(workspace(), workspace() / ".memory/previous-entries" / name.removeprefix("PREVIOUS-"))
+    else:
+        path = (inside(workspace(), workspace() / ".memory" / name) if name in {"KIT-INTEGRATION.md", "MIGRATION.md"}
+                else core_path(name))
     raw = path.read_bytes()
     body = raw.decode("utf-8-sig")
     end = min(len(body), offset + max_chars)
-    return {"file": name, "body": body[offset:end], "sha256": hashlib.sha256(raw).hexdigest(), "total_characters": len(body),
+    return {"file": name, "path": path.relative_to(workspace()).as_posix(), "body": body[offset:end], "sha256": hashlib.sha256(raw).hexdigest(), "total_characters": len(body),
             "offset": offset, "has_more": end < len(body), "next_offset": end if end < len(body) else None}
 
 

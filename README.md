@@ -2,9 +2,13 @@
 
 Portable original-text memory and shared governance for AI companions. 通用 CLI、可选本地 MCP，以及 Claude / Codex / DSH 接入说明。
 
-**0.1.0 · Python 3.11+**。保存、读取、治理、中文词项 RAG 与 Git 校验使用标准库；MCP 可选依赖为 `mcp>=1.28,<2`。正式人格与记忆由使用者自己的 Markdown 承载，包内只有通用模板和合成测试数据。
+**0.2.0 · Python 3.11+**。保存、读取、治理、旧蓝图 Markdown 接续、中文词项 RAG 与 Git 校验使用标准库；MCP 可选依赖为 `mcp>=1.28,<2`。正式人格与记忆由使用者自己的 Markdown 承载，包内只有通用模板和合成测试数据。
+
+**已有记忆与人格先走 [旧蓝图迁移](skills/memory-l/references/legacy-blueprint-migration.md)**：显式映射原文件、清点其余正式记忆、生成只读计划，再向新工作区建立经过校验的完整副本。保留原文件名、正文与原有决定，不用空模板重建身份。0.2.0 不提供旧数据库/结构化 records 的通用转换或已有 runtime 的原地升级。
 
 ## 快速开始
+
+以下初始化用于新身份工作区。已经按旧蓝图建立身份时，使用上方迁移入口。
 
 下载或克隆本项目，在项目根目录运行。把参数换成自己的工作区和双方实际称呼。
 
@@ -40,6 +44,7 @@ python "<memory-workspace>/.memory-tools/memory.py" --workspace "<memory-workspa
 | 检索 | 中文单字/双字词项、原文块与准确坐标，可重建 SQLite/FTS 缓存及扫描降级 |
 | Git 接续 | 清单覆盖正式新文件和必要依据，核对暂存区、提交与远端跟踪提交的真实原文 |
 | 多工作区 | 每个身份独立 namespace、目录和缓存；同一身份 clone 后维持原 ID |
+| 旧蓝图接续 | 保留既有人格与记忆原字节、自定义文件名、细则与额外正文；通过职责映射读取及继续发布 |
 
 基础版不安装向量数据库、模型或后台蒸馏服务，也不自动读取 QQ、手机或其他平台数据库。外部材料通过显式 Markdown 导入，再由人类初筛。源端适配器、语义索引和宿主自动捕获可以按同一来源/治理契约另行扩展。
 

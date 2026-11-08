@@ -8,7 +8,7 @@ import tempfile
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 PACKAGE = Path(__file__).resolve().parents[1]
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 ROOT_FILES = ("README.md", "LICENSE", "VALIDATION.md", ".gitignore", ".gitattributes",
               ".claude-plugin/plugin.json", ".claude-plugin/marketplace.json",
               "tools/build_release.py", "tools/verify_release.py")

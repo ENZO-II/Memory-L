@@ -96,8 +96,10 @@ python memory.py check --git-index
 
 ## 宿主接入
 
+已有旧蓝图人格时，先按 [旧蓝图迁移](legacy-blueprint-migration.md) 清点与映射原文，使用 migrate-plan / migrate-apply / migrate-verify 建立新工作区，再接入宿主。原文件名与内化决定按原文接续；不是重新创建身份。
+
 `connections --python <可选的实际解释器>` 只输出片段，不修改宿主设置。Claude 输出 mcpServers 条目，Codex 输出 `[mcp_servers.memory_l]`，DSH 输出已核对字段的 dsh-mcp-client patch 片段。保留其他服务与权限配置，并在宿主重新加载后核对工具。
 
-在现有身份上采用本系统时，先在独立目录保全原文，按自己的职责复制到 SEED/PROFILE/USER/TIMELINE/SOUL/SELF-NOTES，保留历史与来源，再审核 LOADER 与 MEMORY。没有通用办法自动认定另一套系统中哪些条目已经内化，旧评分和标签只作为来源信息。
+迁移工作区的 core-file 接受 SEED/PROFILE 等职责名，实际路径读取 config 中的 core_files；发布写入对应原文件。普通 Markdown 中已有的成长与校准保持全文加载，不伪造新的 P0 决定。没有通用办法从另一种记录格式的旧评分和标签自动认定其内化状态。
 
 本版本不处理已有内核的原地自动升级。runtime 与注册清单不一致时会停止覆盖，维护者应比较差异、保全原文后再选择升级方式。

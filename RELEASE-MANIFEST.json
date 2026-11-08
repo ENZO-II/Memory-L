@@ -1,7 +1,7 @@
 {
   "name": "memory-l",
-  "version": "0.1.0",
-  "release_id": "339c60d590e9",
+  "version": "0.2.0",
+  "release_id": "17118f6b948b",
   "private_data_included": false,
   "files": [
     {
@@ -12,7 +12,7 @@
     {
       "path": ".claude-plugin/plugin.json",
       "bytes": 204,
-      "sha256": "d93c5755d9ca8545b7445d61d0ccafbac83472a40e5190a92624304b55e9a247"
+      "sha256": "7db155359cf0a369023f9b5fc33e066f87f281b571ad904dc216437ccbc4840f"
     },
     {
       "path": ".gitattributes",
@@ -31,13 +31,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 7358,
-      "sha256": "b400828cb95eb411d7f84376d6fab74dd9ba5cafd6f99b7d37d728298764aced"
+      "bytes": 8049,
+      "sha256": "b73a2ea7772d786d87028f75089d3268e7ad5cad39c64e2d6c6a430b33e75e71"
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 2061,
-      "sha256": "19f6782477f605762edcbdf2d5ed9783e4c874457d5e32a8668bd5b7e231481c"
+      "bytes": 2946,
+      "sha256": "fe67fd6702176af0b360b8c9284fd0d1a818c0484a0a406309f0e05e1f418753"
     },
     {
       "path": "evaluations/README.md",
@@ -51,8 +51,8 @@
     },
     {
       "path": "skills/memory-l/SKILL.md",
-      "bytes": 3601,
-      "sha256": "ef2d8f585d99e2a24a3e4ddaa10d3767772a2902bb13e76c872b109f2522f896"
+      "bytes": 4018,
+      "sha256": "cd9454b44b8c03a6d9e3aeea3dfc124d6c8314fa2c733212733dcc81358ccb6e"
     },
     {
       "path": "skills/memory-l/agents/openai.yaml",
@@ -95,34 +95,44 @@
       "sha256": "ea8d41ed0d9809f94f70c166493b4e281fdcb4c912c0ec637d21c0b862c78ae1"
     },
     {
+      "path": "skills/memory-l/references/legacy-blueprint-migration.md",
+      "bytes": 9110,
+      "sha256": "7ade7d013653251d83545fbfb6b59782d64b1b0919b09d3fc86ee2d0c44b015e"
+    },
+    {
       "path": "skills/memory-l/references/operations.md",
-      "bytes": 6235,
-      "sha256": "aaaad0d0f8589023f331edbbe4e2b15ba36fd3f7e3e35065aaddf6a3aefa38fb"
+      "bytes": 6517,
+      "sha256": "e45a9c193c98ba663bb1bc245c45087116839182d2ae1cdf85126d1f2bdce57a"
     },
     {
       "path": "skills/memory-l/references/recall-guide.md",
-      "bytes": 8013,
-      "sha256": "34b5fc5ae09e5019436f8fd2c171ac5f23366ca25e10c2d4a46f391f93736772"
+      "bytes": 8158,
+      "sha256": "277de8b3a443da56986ad7037bad9d39dce05f5ccdf297c8cc31041761d1d68e"
     },
     {
       "path": "skills/memory-l/references/retrieval-options.md",
-      "bytes": 9024,
-      "sha256": "0eabc6c56d1e7359aa7f8af044948a75e2197a556ee1c443805e451e999eee30"
+      "bytes": 9032,
+      "sha256": "2523efea8792adf21f824b914424de4dd92ec57818e92b48d9e81f35d73a82fd"
     },
     {
       "path": "skills/memory-l/scripts/integrity.py",
-      "bytes": 8839,
-      "sha256": "1c8304e945d0e77113477bc442044c4f78d0d392ab28c7dfa7c6bf0e7c264ec5"
+      "bytes": 8950,
+      "sha256": "9488b32206afe2f5ff3f9f53447105b61d89ef386a836d56517c86cdcc344cce"
     },
     {
       "path": "skills/memory-l/scripts/kit.py",
-      "bytes": 12953,
-      "sha256": "e1663ec0f67772d71e6f850d5860f8d29de937eae07988137deef91102e4b0b5"
+      "bytes": 14914,
+      "sha256": "f26b138791d04158babbbfe1e87e094956d084ec5c8b08371a98f277d0efd80d"
+    },
+    {
+      "path": "skills/memory-l/scripts/legacy_migration.py",
+      "bytes": 15429,
+      "sha256": "047603997602fffccd064cdaac8468e0df099eb992c973ee8bec0339e4d23e31"
     },
     {
       "path": "skills/memory-l/scripts/memory.py",
-      "bytes": 8238,
-      "sha256": "8738712d2e3b1748bc99b57912a57a16bce425aa3e5384bd30d92fab3bb3f5ca"
+      "bytes": 8990,
+      "sha256": "9a929c6e9754721bc512ec2f6c6059e21b654ac0a1bf8ae6ef0c9a9dfc31d526"
     },
     {
       "path": "skills/memory-l/scripts/memory_core/__init__.py",
@@ -136,8 +146,8 @@
     },
     {
       "path": "skills/memory-l/scripts/memory_core/dispatch.py",
-      "bytes": 4210,
-      "sha256": "44f190f64fa38fd2dd4fc7f26aabfcd96416a87e950d9d5c65439babf4230637"
+      "bytes": 4268,
+      "sha256": "ec5af439900b26ef047fdd67953968fb6fa50e43a954a717bf14fe2754f67357"
     },
     {
       "path": "skills/memory-l/scripts/memory_core/files.py",
@@ -176,8 +186,8 @@
     },
     {
       "path": "skills/memory-l/scripts/memory_core/settings.py",
-      "bytes": 1129,
-      "sha256": "ee113c9a96ed4a4d0e3bfa88ba19ffdca7f94ac387446d466a9b477905ed6233"
+      "bytes": 3018,
+      "sha256": "bdb8596fd9fdbe36be797273454ea3527c5d17c539ec31c64595003e387e7a79"
     },
     {
       "path": "skills/memory-l/scripts/memory_core/store.py",
@@ -191,8 +201,8 @@
     },
     {
       "path": "skills/memory-l/scripts/server.py",
-      "bytes": 9472,
-      "sha256": "192d213d994ad8291557e9ef93d6040ee5f1eaad5f42bbeb958323a23fff448f"
+      "bytes": 9582,
+      "sha256": "72d0093b578e87ecb4768fca894e054d2a60053d38ee7ae6da7d68d565d37d58"
     },
     {
       "path": "tests/seed_evaluation.py",
@@ -205,9 +215,14 @@
       "sha256": "059c6c17b34069448456d29acc6ad931ce5bfe4d2989c98e91f9462e89ef85cc"
     },
     {
+      "path": "tests/test_legacy_migration.py",
+      "bytes": 13105,
+      "sha256": "76050ccbbe428f7731f67f33a34f3b9a7190e47e3311375388c7848c5663896a"
+    },
+    {
       "path": "tools/build_release.py",
       "bytes": 4021,
-      "sha256": "53eb9d36f720745f1147a1abd9ffe0e6ffc1ce26fc4b57842223bfe255d17ddc"
+      "sha256": "78cafea6193cb5850bb3c19d311c905d316680ba4d4cab348e2129a0f5940b8a"
     },
     {
       "path": "tools/verify_release.py",

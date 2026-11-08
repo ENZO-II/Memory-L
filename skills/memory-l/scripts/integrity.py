@@ -10,6 +10,7 @@ from memory_core.files import atomic_write
 from memory_core.learning import authored_memory, has_governance
 from memory_core.lifecycle import legacy_reasoning, source_material
 from memory_core.store import RecordStore, parse
+from memory_core.settings import CORE_NAMES, core_path
 
 MANIFEST = ".memory/MANIFEST.md"
 LOCAL_KINDS = {"session_material", "session_cursor"}
@@ -81,7 +82,7 @@ def memory_paths(project):
 
 def inspect_assets(project):
     entries, kinds = [], Counter()
-    missing = [name for name in REQUIRED if not (project / name).is_file()]
+    missing = [str(core_path(name, project).relative_to(project)) for name in CORE_NAMES if not core_path(name, project).is_file()]
     if missing:
         raise ValueError("Missing Markdown assets: " + ", ".join(missing))
     for path in asset_paths(project):

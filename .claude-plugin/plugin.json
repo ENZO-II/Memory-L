@@ -1,6 +1,6 @@
 {
   "name": "memory-l",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Portable Markdown memory, shared governance and Git migration checks.",
   "author": {"name": "Memory-L contributors"},
   "license": "MIT"
