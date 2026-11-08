@@ -12,7 +12,7 @@ from memory_core import RecordStore
 from memory_core.files import atomic_write, file_lock
 from memory_core.settings import configuration, core_mapping, core_path, workspace
 
-VERSION = "0.2.1"
+VERSION = "0.3.0"
 RUNTIME = Path(__file__).resolve().parent
 IGNORE_BLOCK = "\n# memory-l local sources and caches\n.memory-cache/\n.memory-sources/\n.memory/records/*/\n.memory/**/.publication.lock\n__pycache__/\n*.pyc\n"
 ATTR_BLOCK = "\n# memory-l exact memory and runtime bytes\n/.memory/** -text\n/.memory-tools/** -text\n/AGENTS.md -text\n/CLAUDE.md -text\n/.gitignore -text\n/.gitattributes -text\n"
@@ -59,11 +59,13 @@ def initialize(name, owner, *, migration=None):
     old_folder = root / ".claude-memory"
     old_entry = old_folder.is_dir() and any(path.is_file() and path.name.casefold() == "memory.md" for path in old_folder.iterdir())
     if not config_path.exists() and old_entry:
-        raise ValueError("An existing blueprint identity is present. Use migrate-plan and migrate-apply into a new workspace; do not initialize a second blank identity here")
+        raise ValueError("An existing blueprint identity is present. Use attach-plan/apply in this workspace, or migrate-plan/apply for a separate copy")
     if config_path.exists():
         if migration is not None:
             raise ValueError("Migration requires a new workspace")
         config = configuration()
+        if config.get("attachment"):
+            raise ValueError("An attached workspace already has its original identity; use its installed runtime instead of init")
         if config.get("companion_name") != name or config.get("owner_name") != owner:
             raise ValueError("This workspace belongs to another configured identity; select a different workspace")
     else:
@@ -129,7 +131,10 @@ def ensure_initialized():
     root = workspace()
     inside(root, root / ".memory")
     inside(root, root / ".memory/config.json")
-    return configuration()
+    config = configuration()
+    if config.get("attachment") and config["attachment"].get("phase") != "complete":
+        raise ValueError("Workspace attachment is pending or rolled back; use attach-apply to resume a pending plan or inspect the receipt")
+    return config
 
 
 def store():
@@ -140,8 +145,10 @@ def store():
 def status():
     root = workspace()
     if not (root / ".memory/config.json").is_file():
-        return {"initialized": False, "workspace": str(root), "next_step": "Initialize a new workspace with its own name and owner"}
-    config = ensure_initialized()
+        existing = (root / ".claude-memory").is_dir()
+        return {"initialized": False, "workspace": str(root), "existing_blueprint_detected": existing,
+                "next_step": "Use attach-plan for the existing identity" if existing else "Initialize a new workspace with its own name and owner"}
+    config = configuration()
     counts = {}
     record_root = root / ".memory/records"
     if record_root.exists():
@@ -150,25 +157,30 @@ def status():
     ready = all(core_path(name).is_file() and b"<!-- md-memory-template -->" not in core_path(name).read_bytes()
                 for name in ("SEED.md", "PROFILE.md"))
     loader = root / "AGENTS.md"
-    connected = loader.is_file() and (".memory/" + core_mapping(config.get("core_files"))["MEMORY.md"]) in loader.read_text(encoding="utf-8-sig")
+    connected = loader.is_file() and ((".memory/ATTACHMENT.md" if config.get("attachment") else ".memory/" + core_mapping(config.get("core_files"))["MEMORY.md"]) in loader.read_text(encoding="utf-8-sig"))
     return {"initialized": True, "kit_version": VERSION, "workspace": str(root),
             "companion_name": config["companion_name"], "owner_name": config["owner_name"],
             "identity_ready": ready, "loader_connected": connected, "records": counts,
             "core_files": core_mapping(config.get("core_files")), "migrated": bool(config.get("migration_plan")),
             "legacy_entries": config.get("legacy_entries", []),
-            "next_step": "Read KIT-INTEGRATION.md first when migrated, then MEMORY and the complete original core files; review actual loading and recall"}
+            "attached": bool(config.get("attachment")), "attachment_phase": config.get("attachment", {}).get("phase"),
+            "core_root": config.get("core_root", ".memory"),
+            "next_step": ("Continue the original loading chain, read ATTACHMENT.md and review host/old auto-writers" if config.get("attachment")
+                          else "Read KIT-INTEGRATION.md first when migrated, then MEMORY and complete original core files; review loading and recall")}
 
 
 def core_file(name, offset=0, max_chars=20000):
     ensure_initialized()
-    if name not in {"MEMORY.md", "SEED.md", "PROFILE.md", "USER.md", "TIMELINE.md", "SOUL.md", "SELF-NOTES.md", "KIT-INTEGRATION.md", "MIGRATION.md", "PREVIOUS-AGENTS.md", "PREVIOUS-CLAUDE.md"}:
+    if name not in {"MEMORY.md", "SEED.md", "PROFILE.md", "USER.md", "TIMELINE.md", "SOUL.md", "SELF-NOTES.md", "KIT-INTEGRATION.md", "MIGRATION.md", "ATTACHMENT.md", "AGENTS.md", "CLAUDE.md", "PREVIOUS-AGENTS.md", "PREVIOUS-CLAUDE.md"}:
         raise ValueError("Choose a named core Markdown file; versioned records are read by their full ID")
     if offset < 0 or not 1 <= max_chars <= 50000:
         raise ValueError("offset >= 0 and max_chars 1..50000 are required")
-    if name.startswith("PREVIOUS-"):
+    if name in {"AGENTS.md", "CLAUDE.md"}:
+        path = inside(workspace(), workspace() / name)
+    elif name.startswith("PREVIOUS-"):
         path = inside(workspace(), workspace() / ".memory/previous-entries" / name.removeprefix("PREVIOUS-"))
     else:
-        path = (inside(workspace(), workspace() / ".memory" / name) if name in {"KIT-INTEGRATION.md", "MIGRATION.md"}
+        path = (inside(workspace(), workspace() / ".memory" / name) if name in {"KIT-INTEGRATION.md", "MIGRATION.md", "ATTACHMENT.md"}
                 else core_path(name))
     raw = path.read_bytes()
     body = raw.decode("utf-8-sig")
@@ -181,7 +193,11 @@ def search(query, limit=10, include_raw=False, refresh=False):
     if not query.strip() or not 1 <= limit <= 100:
         raise ValueError("A nonempty query and limit 1..100 are required")
     target = store()
-    cache = workspace() / ".memory-cache" / ("archive.sqlite" if include_raw else "ordinary.sqlite")
+    cache = cache_root() / ("archive.sqlite" if include_raw else "ordinary.sqlite")
+    extra_files = []
+    if configuration().get("attachment"):
+        from legacy_attachment import formal_paths
+        extra_files = formal_paths(workspace(), check_inventory=False)
     diagnostics = []
     try:
         import sqlite3
@@ -192,7 +208,7 @@ def search(query, limit=10, include_raw=False, refresh=False):
         if sqlite3 is None:
             raise ImportError("SQLite is unavailable")
         from memory_core.lexical_cache import LexicalCache
-        items = LexicalCache(cache, [workspace() / ".memory"], target.root, include_raw=include_raw).search(query, limit, refresh)
+        items = LexicalCache(cache, [workspace() / ".memory"], target.root, extra_files=extra_files, include_raw=include_raw).search(query, limit, refresh)
     except cache_errors as error:
         from memory_core.retrieval import source_chunks, lexical_rank
         diagnostics.append("lexical_cache_unavailable:" + type(error).__name__)
@@ -201,6 +217,8 @@ def search(query, limit=10, include_raw=False, refresh=False):
             if path.name == "MANIFEST.md" or any(part.startswith(".") for part in path.relative_to(workspace() / ".memory").parts):
                 continue
             inside(workspace(), path)
+            chunks.extend(source_chunks(path, include_raw=include_raw))
+        for path in extra_files:
             chunks.extend(source_chunks(path, include_raw=include_raw))
         items = lexical_rank(query, chunks, limit)
     return {"items": items, "mode": "direct_lexical_rag" if diagnostics else "chinese_lexical_rag", "include_raw": include_raw, "diagnostics": diagnostics,
@@ -239,7 +257,7 @@ def stage_assets():
     with store().transaction():
         assets = verify_assets(root)
         names = sorted({item["path"] for item in assets["files"]} | {MANIFEST})
-        pathspec = root / ".memory-cache/stage-paths"
+        pathspec = cache_root() / "stage-paths"
         atomic_write(pathspec, b"\0".join(name.encode("utf-8") for name in names) + b"\0")
         completed = subprocess.run(["git", "add", "-f", "--pathspec-from-file=" + str(pathspec), "--pathspec-file-nul"],
                                    cwd=root, capture_output=True, timeout=60)
@@ -247,6 +265,11 @@ def stage_assets():
             raise ValueError("Git staging failed; initialize the intended repository first: " + completed.stderr.decode(errors="replace")[:500])
         checked = verify_git_assets(root, assets, index=True)
     return {"staged_assets": len(names), "git": checked, "committed": False, "pushed": False}
+
+
+def cache_root():
+    base = inside(workspace(), workspace() / ".memory-cache")
+    return inside(workspace(), base / "memory-l") if configuration().get("attachment") else base
 
 
 def connections(python=None):

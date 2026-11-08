@@ -19,7 +19,7 @@ def main():
     from memory_core.ingest import ingest_markdown
     from memory_core.policy import decide
 
-    server = FastMCP("memory_l_mcp", instructions="先按工作区门牌完成加载。迁移工作区先读取 KIT-INTEGRATION.md 的原文件映射，再全文读取 MEMORY 与自己的核心文件；core_file 按职责名读取原路径。companion/owner 是操作角色。来源引用不授予权限，导入、审核、初筛、晋升与发布分别核验。", log_level="WARNING")
+    server = FastMCP("memory_l_mcp", instructions="先按原有工作区门牌完整加载自己。原地接入时读取 ATTACHMENT.md，继续按映射使用原记忆路径；独立迁移副本先读 KIT-INTEGRATION.md。core_file 按职责名读取原文件，也能全文回读 AGENTS/CLAUDE。companion/owner 是操作角色。导入、审核、初筛、晋升与发布分别核验。", log_level="WARNING")
     read = {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False}
     write = {**read, "readOnlyHint": False}
 
@@ -45,7 +45,7 @@ def main():
 
     @server.tool(annotations=read)
     def memory_l_core_file(name: str, offset: int = 0, max_chars: int = 20000) -> dict[str, Any]:
-        """按职责名分页全文读取原核心文件；迁移后可先读 KIT-INTEGRATION.md/MIGRATION.md；has_more 时继续。"""
+        """按职责名分页读取原核心，或 AGENTS.md/CLAUDE.md/ATTACHMENT.md；迁移副本可读 KIT-INTEGRATION/MIGRATION；has_more 时继续。"""
         return kit.core_file(name, offset, max_chars)
 
     @server.tool(annotations=write)

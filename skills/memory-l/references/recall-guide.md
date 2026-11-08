@@ -1,6 +1,6 @@
 # 不安装向量库，怎样使用记忆？
 
-适用于 Memory-L 0.1.x / 0.2.x。当前版本提供标准库 CLI、中文词项 RAG 和可选 MCP。语义向量检索尚未接入；安装 Chroma 或 embedding 模型不会自动开启这项能力。已有身份先按 [旧蓝图迁移](legacy-blueprint-migration.md) 接续；迁移后先读 KIT-INTEGRATION 与映射中的原 MEMORY。
+适用于 Memory-L 0.1.x 至 0.3.x。当前版本提供标准库 CLI、中文词项 RAG 和可选 MCP。语义向量检索尚未接入；安装 Chroma 或 embedding 模型不会自动开启这项能力。已有工作区优先按 [原工作区接入](existing-workspace.md) 接续；原加载链继续，另读 ATTACHMENT。独立迁移副本先读 KIT-INTEGRATION 与映射中的原 MEMORY。
 
 ## 先理解两种读取
 

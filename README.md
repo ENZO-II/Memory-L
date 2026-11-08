@@ -2,13 +2,15 @@
 
 Portable original-text memory and shared governance for AI companions. 通用 CLI、可选本地 MCP，以及 Claude / Codex / DSH 接入说明。
 
-**0.2.1 · Python 3.11+**。保存、读取、治理、旧蓝图 Markdown 接续、中文词项 RAG 与 Git 校验使用标准库；MCP 可选依赖为 `mcp>=1.28,<2`。正式人格与记忆由使用者自己的 Markdown 承载，包内只有通用模板和合成测试数据。
+**0.3.0 · Python 3.11+**。保存、读取、治理、旧蓝图 Markdown 接续、中文词项 RAG 与 Git 校验使用标准库；MCP 可选依赖为 `mcp>=1.28,<2`。正式人格与记忆由使用者自己的 Markdown 承载，包内只有通用模板和合成测试数据。
 
-**已有记忆与人格先走 [旧蓝图迁移](skills/memory-l/references/legacy-blueprint-migration.md)**：显式映射原文件、清点其余正式记忆、生成只读计划，再向新工作区建立经过校验的完整副本。保留原文件名、正文与原有决定，不用空模板重建身份。0.2.x 不提供旧数据库/结构化 records 的通用转换或已有 runtime 的原地升级。
+**已经有工作区和人格，优先看 [原工作区接入](skills/memory-l/references/existing-workspace.md)**：显式清点后按映射直接读写原记忆，保留项目与门牌原文，只追加工具接入片段。无需另建一套空白人格。
+
+需要独立副本时再用 [旧蓝图迁移](skills/memory-l/references/legacy-blueprint-migration.md)。两条路线保留已有正文与决定；均不做旧数据库/结构化 records 的通用转换，也不自动覆盖已经安装的 Memory-L runtime。
 
 ## 快速开始
 
-以下初始化用于新身份工作区。已经按旧蓝图建立身份时，使用上方迁移入口。
+以下初始化用于新身份工作区。已经按旧蓝图建立身份时，使用上方原工作区接入或独立副本入口。
 
 下载或克隆本项目，在项目根目录运行。把参数换成自己的工作区和双方实际称呼。
 
@@ -45,6 +47,7 @@ python "<memory-workspace>/.memory-tools/memory.py" --workspace "<memory-workspa
 | Git 接续 | 清单覆盖正式新文件和必要依据，核对暂存区、提交与远端跟踪提交的真实原文 |
 | 多工作区 | 每个身份独立 namespace、目录和缓存；同一身份 clone 后维持原 ID |
 | 旧蓝图接续 | 保留既有人格与记忆原字节、自定义文件名、细则与额外正文；通过职责映射读取及继续发布 |
+| 原工作区接入 | 不搬记忆、不复制人格；根门牌/项目配置保留原文并追加可回退片段，原文件仍是唯一正文 |
 
 基础版不安装向量数据库、模型或后台蒸馏服务，也不自动读取 QQ、手机或其他平台数据库。外部材料通过显式 Markdown 导入，再由人类初筛。源端适配器、语义索引和宿主自动捕获可以按同一来源/治理契约另行扩展。
 
@@ -60,6 +63,8 @@ AGENTS.md / CLAUDE.md       加载入口，已有文件由维护者审核整合
 ```
 
 companion / owner / joint 是代码中的操作角色；实际名称保存在自己的配置与 Markdown。它们不是身份验证或密码系统。能直接维护本地文件或使用操作员 CLI 的人处于受信任的维护边界内。
+
+原工作区接入时，核心正文留在原目录（例如 `.claude-memory/`），`.memory/` 只承载接入配置、说明和新增逐条记录；上方布局不要求搬走原有身份。
 
 ## Claude、Codex、DSH
 

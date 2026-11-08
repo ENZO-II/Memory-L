@@ -22,6 +22,15 @@ def main(argv=None):
     migration.add_argument("--output", required=True, type=Path)
     commands.add_parser("migrate-apply").add_argument("--plan", required=True, type=Path)
     commands.add_parser("migrate-verify")
+    attach = commands.add_parser("attach-plan")
+    attach.add_argument("--input", required=True)
+    attach.add_argument("--output", required=True, type=Path)
+    commands.add_parser("attach-apply").add_argument("--plan", required=True, type=Path)
+    commands.add_parser("attach-verify")
+    commands.add_parser("attach-rollback")
+    register = commands.add_parser("attach-register")
+    register.add_argument("path")
+    register.add_argument("--reason", required=True)
     commands.add_parser("status")
     for name in ("save", "revise", "decide", "authorize", "reflect-commit", "publish"):
         commands.add_parser(name).add_argument("--input", required=True, help="JSON file or - for stdin")
@@ -84,6 +93,18 @@ def main(argv=None):
         elif args.command == "migrate-verify":
             from legacy_migration import verify
             result = verify()
+        elif args.command.startswith("attach-"):
+            import legacy_attachment as attachment
+            if args.command == "attach-plan":
+                result = attachment.prepare(args.input, args.output)
+            elif args.command == "attach-apply":
+                result = attachment.apply(args.plan)
+            elif args.command == "attach-verify":
+                result = attachment.verify()
+            elif args.command == "attach-rollback":
+                result = attachment.rollback()
+            else:
+                result = attachment.register(args.path, args.reason)
         else:
             kit.ensure_initialized()
             if args.command in {"save", "revise", "decide", "authorize", "reflect-commit", "publish"}:

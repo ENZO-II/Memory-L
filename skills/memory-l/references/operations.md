@@ -96,7 +96,9 @@ python memory.py check --git-index
 
 ## 宿主接入
 
-已有旧蓝图人格时，先按 [旧蓝图迁移](legacy-blueprint-migration.md) 清点与映射原文，使用 migrate-plan / migrate-apply / migrate-verify 建立新工作区，再接入宿主。原文件名与内化决定按原文接续；不是重新创建身份。
+已经沿旧蓝图在工作区中成长、尚未安装 Memory-L 时，优先按 [原工作区接入](existing-workspace.md) 使用 attach-plan / attach-apply / attach-verify。它继续读写原记忆路径，保留项目和门牌原文；无需重新初始化人格。
+
+选择独立接续副本时，按 [旧蓝图迁移](legacy-blueprint-migration.md) 清点与映射原文，使用 migrate-plan / migrate-apply / migrate-verify 建立副本，再接入宿主。原文件名与内化决定按原文接续。
 
 `connections --python <可选的实际解释器>` 只输出片段，不修改宿主设置。Claude 输出 mcpServers 条目，Codex 输出 `[mcp_servers.memory_l]`，DSH 输出已核对字段的 dsh-mcp-client patch 片段。保留其他服务与权限配置，并在宿主重新加载后核对工具。
 

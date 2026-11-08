@@ -46,7 +46,7 @@ def inventory(root):
     return sorted(names)
 
 
-def make_plan(recipe):
+def make_plan(recipe, *, attachment=False, entry_bytes=None):
     if not isinstance(recipe, dict) or set(recipe) != {"source_root", "name", "owner", "core_files", "formal_files", "exclude", "entry_files"}:
         raise ValueError("Recipe requires source_root, name, owner, core_files, formal_files, exclude and entry_files")
     for key in ("name", "owner"):
@@ -65,7 +65,10 @@ def make_plan(recipe):
         if isinstance(configured, dict) and configured.get("kit_version") and configured.get("namespace"):
             raise ValueError("This is an existing Memory-L workspace; use a reviewed runtime upgrade, not the plain Markdown blueprint importer")
     target = workspace()
-    if root.is_relative_to(target) or target.is_relative_to(root):
+    if attachment:
+        if not target.is_dir() or root == target or not root.is_relative_to(target):
+            raise ValueError("Attachment requires the existing memory directory inside the current workspace")
+    elif root.is_relative_to(target) or target.is_relative_to(root):
         raise ValueError("Source and new target must be separate, non-overlapping directories")
     mapping = core_mapping(recipe["core_files"])
     extra = recipe["formal_files"]
@@ -124,9 +127,11 @@ def make_plan(recipe):
         if not isinstance(value, str):
             raise ValueError("Old entry paths must be absolute filenames")
         path = Path(value)
-        if not path.is_absolute() or not path.is_file() or path.is_symlink() or path.resolve().is_relative_to(target):
+        if not path.is_absolute() or not path.is_file() or path.is_symlink() or (not attachment and path.resolve().is_relative_to(target)):
             raise ValueError("Old entry path is missing, unsafe or inside the new target")
-        raw = path.read_bytes()
+        if attachment and path.resolve() != target / role:
+            raise ValueError("Attachment entry_files must name the actual workspace-root AGENTS.md / CLAUDE.md")
+        raw = entry_bytes[role] if entry_bytes is not None else path.read_bytes()
         text = raw.decode("utf-8-sig")
         if not text.strip() or CREDENTIAL.search(raw):
             raise ValueError("Old entry is empty or contains a credential-like literal: " + role)
@@ -136,7 +141,7 @@ def make_plan(recipe):
             warnings.append({"file": "previous-entries/" + role, "kind": "machine_specific_paths_review_required"})
     normalized = {**recipe, "source_root": str(root), "name": recipe["name"].strip(), "owner": recipe["owner"].strip(),
                   "core_files": mapping, "formal_files": sorted(extra), "entry_files": normalized_entries}
-    plan = {"schema_version": 1, "kind": "legacy_markdown_blueprint", "target_workspace": str(target),
+    plan = {"schema_version": 1, "kind": "legacy_markdown_attachment" if attachment else "legacy_markdown_blueprint", "target_workspace": str(target),
             "recipe": normalized, "files": entries, "entry_files": sorted(entry_rows, key=lambda row: row["path"]), "source_inventory": all_names,
             "excluded": excluded, "unclassified": unclassified, "warnings": warnings}
     plan["plan_digest"] = digest(plan)

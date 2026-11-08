@@ -60,7 +60,7 @@ def publish(store, project, record_id, destination, *, operation_id, expected_re
             # Preserve original bytes, including its BOM and newline style.
             atomic_write(path, original + appended.encode("utf-8"))
         publications = list(record.get("publications", []))
-        publications.append({"destination": destination, "path": path.relative_to(Path(project).resolve() / ".memory").as_posix(), "operation_id": operation_id,
+        publications.append({"destination": destination, "path": path.relative_to(Path(project).resolve()).as_posix(), "operation_id": operation_id,
                              "source_revision": expected_revision})
         updated = store.update(record_id, operation_id, expected_revision, {"publications": publications},
                                audit={"action": "publish", "actor": actor, "reason": reason, "evidence": evidence}, request=request)

@@ -10,7 +10,7 @@ from memory_core.files import atomic_write
 from memory_core.learning import authored_memory, has_governance
 from memory_core.lifecycle import legacy_reasoning, source_material
 from memory_core.store import RecordStore, parse
-from memory_core.settings import CORE_NAMES, core_path
+from memory_core.settings import CORE_NAMES, core_path, configuration
 
 MANIFEST = ".memory/MANIFEST.md"
 LOCAL_KINDS = {"session_material", "session_cursor"}
@@ -25,6 +25,10 @@ def read_payload(path):
 
 def asset_paths(project):
     paths = memory_paths(project)
+    if configuration(project).get("attachment"):
+        from legacy_attachment import formal_paths
+        paths.extend(formal_paths(project))
+        paths.append(project / ".memory/attachment.json")
     registry = project / ".memory-tools/runtime-files.json"
     if not registry.is_file():
         raise ValueError("Runtime registry is missing; install the kit into this workspace first")

@@ -50,9 +50,23 @@ def core_path(name, project=None):
         raise ValueError("Unknown core role")
     root = Path(project).resolve() if project is not None else workspace()
     relative = core_mapping(configuration(root).get("core_files"))[name]
-    path = root / ".memory" / relative
-    if path.is_symlink() or not path.resolve().is_relative_to(root / ".memory"):
+    directory = core_directory(root)
+    path = directory / relative
+    if path.is_symlink() or not path.resolve().is_relative_to(directory):
         raise ValueError("Core file leaves the workspace")
+    return path
+
+
+def core_directory(project=None):
+    root = Path(project).resolve() if project is not None else workspace()
+    relative = configuration(root).get("core_root", ".memory")
+    if not isinstance(relative, str) or not relative or any(ch in relative for ch in "\\:\r\n\0"):
+        raise ValueError("Core root must be a portable workspace-relative directory")
+    if PurePosixPath(relative).is_absolute() or any(part in {"", ".", ".."} for part in relative.split("/")):
+        raise ValueError("Core root leaves the workspace")
+    path = root / relative
+    if path.is_symlink() or not path.resolve().is_relative_to(root):
+        raise ValueError("Core root leaves the workspace")
     return path
 
 
