@@ -2,9 +2,9 @@
 
 Portable original-text memory and shared governance for AI companions. 通用 CLI、可选本地 MCP，以及 Claude / Codex / DSH 接入说明。
 
-**0.2.0 · Python 3.11+**。保存、读取、治理、旧蓝图 Markdown 接续、中文词项 RAG 与 Git 校验使用标准库；MCP 可选依赖为 `mcp>=1.28,<2`。正式人格与记忆由使用者自己的 Markdown 承载，包内只有通用模板和合成测试数据。
+**0.2.1 · Python 3.11+**。保存、读取、治理、旧蓝图 Markdown 接续、中文词项 RAG 与 Git 校验使用标准库；MCP 可选依赖为 `mcp>=1.28,<2`。正式人格与记忆由使用者自己的 Markdown 承载，包内只有通用模板和合成测试数据。
 
-**已有记忆与人格先走 [旧蓝图迁移](skills/memory-l/references/legacy-blueprint-migration.md)**：显式映射原文件、清点其余正式记忆、生成只读计划，再向新工作区建立经过校验的完整副本。保留原文件名、正文与原有决定，不用空模板重建身份。0.2.0 不提供旧数据库/结构化 records 的通用转换或已有 runtime 的原地升级。
+**已有记忆与人格先走 [旧蓝图迁移](skills/memory-l/references/legacy-blueprint-migration.md)**：显式映射原文件、清点其余正式记忆、生成只读计划，再向新工作区建立经过校验的完整副本。保留原文件名、正文与原有决定，不用空模板重建身份。0.2.x 不提供旧数据库/结构化 records 的通用转换或已有 runtime 的原地升级。
 
 ## 快速开始
 

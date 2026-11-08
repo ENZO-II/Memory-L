@@ -1,7 +1,7 @@
 {
   "name": "memory-l",
-  "version": "0.2.0",
-  "release_id": "17118f6b948b",
+  "version": "0.2.1",
+  "release_id": "4412b84e0619",
   "private_data_included": false,
   "files": [
     {
@@ -12,12 +12,12 @@
     {
       "path": ".claude-plugin/plugin.json",
       "bytes": 204,
-      "sha256": "7db155359cf0a369023f9b5fc33e066f87f281b571ad904dc216437ccbc4840f"
+      "sha256": "0f7b6ab875f1fec2e6ef90d78695186e83a4f56c6f5607049930f5b312d6a021"
     },
     {
       "path": ".gitattributes",
-      "bytes": 90,
-      "sha256": "19e17b586393ae85d188e34151b067081ed9fd8b34a8412aded999685dbd41d9"
+      "bytes": 181,
+      "sha256": "1f114f803ebae26e5d8d197844331c975779b93a6a2523b3a4395d965edc4c44"
     },
     {
       "path": ".gitignore",
@@ -32,12 +32,12 @@
     {
       "path": "README.md",
       "bytes": 8049,
-      "sha256": "b73a2ea7772d786d87028f75089d3268e7ad5cad39c64e2d6c6a430b33e75e71"
+      "sha256": "65c1d528347181f72eef897389fa636190584058cbb09ff33d9502fb8e09b52e"
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 2946,
-      "sha256": "fe67fd6702176af0b360b8c9284fd0d1a818c0484a0a406309f0e05e1f418753"
+      "bytes": 3177,
+      "sha256": "43c9a98f67f44324b592bd03bda3c21fee9936ca589b8b9e06d75844a6b67cf5"
     },
     {
       "path": "evaluations/README.md",
@@ -96,8 +96,8 @@
     },
     {
       "path": "skills/memory-l/references/legacy-blueprint-migration.md",
-      "bytes": 9110,
-      "sha256": "7ade7d013653251d83545fbfb6b59782d64b1b0919b09d3fc86ee2d0c44b015e"
+      "bytes": 9147,
+      "sha256": "01ff245e9561ce5ae4ea3a3602c563a6ae14ce1f665f6914004e20b17f720b45"
     },
     {
       "path": "skills/memory-l/references/operations.md",
@@ -122,7 +122,7 @@
     {
       "path": "skills/memory-l/scripts/kit.py",
       "bytes": 14914,
-      "sha256": "f26b138791d04158babbbfe1e87e094956d084ec5c8b08371a98f277d0efd80d"
+      "sha256": "89e76a7f2fa50e57c6979af574824952406dbcafe9f9634e8bdaa7ba8a9ae55d"
     },
     {
       "path": "skills/memory-l/scripts/legacy_migration.py",
@@ -220,9 +220,14 @@
       "sha256": "76050ccbbe428f7731f67f33a34f3b9a7190e47e3311375388c7848c5663896a"
     },
     {
+      "path": "tests/test_release_portability.py",
+      "bytes": 1844,
+      "sha256": "d18bdc425b846ab61a80390bc519b3d96cf5e9aa968b86b7acb4f66833280c2a"
+    },
+    {
       "path": "tools/build_release.py",
       "bytes": 4021,
-      "sha256": "78cafea6193cb5850bb3c19d311c905d316680ba4d4cab348e2129a0f5940b8a"
+      "sha256": "9be9cea7139143ae4771976929897b6408e6743cd15ae3f79825c45ff776c99d"
     },
     {
       "path": "tools/verify_release.py",

@@ -12,7 +12,7 @@ from memory_core import RecordStore
 from memory_core.files import atomic_write, file_lock
 from memory_core.settings import configuration, core_mapping, core_path, workspace
 
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 RUNTIME = Path(__file__).resolve().parent
 IGNORE_BLOCK = "\n# memory-l local sources and caches\n.memory-cache/\n.memory-sources/\n.memory/records/*/\n.memory/**/.publication.lock\n__pycache__/\n*.pyc\n"
 ATTR_BLOCK = "\n# memory-l exact memory and runtime bytes\n/.memory/** -text\n/.memory-tools/** -text\n/AGENTS.md -text\n/CLAUDE.md -text\n/.gitignore -text\n/.gitattributes -text\n"
